@@ -32,6 +32,7 @@ To allow a non-localhost API, add its origin to `host_permissions` in `manifest.
 | `storage` | Persist the configurable API base URL |
 | `host_permissions` for localhost | Call the local FastAPI server |
 
-## Icons
+## Notes
 
-Placeholder icons are included under `icons/`. Replace with final branding assets if desired.
+- Plain JavaScript (no build step).
+- Browser default toolbar icon is used; add custom icons under `icons/` and reference them in `manifest.json` if desired.
