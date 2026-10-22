@@ -218,18 +218,31 @@ def main() -> None:
     benign_test = benign[:nb_test]
     benign_train = benign[nb_test:]
 
-    # ── Enforce domain-disjointness (train vs test for phishing) ───────────────
-    print("\nEnforcing domain-disjointness between phishing train and test …")
+    # ── Enforce domain-disjointness (train + db vs test) ──────────────────────
+    print("\nEnforcing complete domain-disjointness between test and (train + db) …")
+    db_domains = {r["registered_domain"] for r in phish_db}
     phish_train, phish_test = enforce_domain_disjoint(phish_train, phish_test)
 
-    # Also check benign (Tranco domains shouldn't overlap phishing test domains)
-    phish_test_domains = {r["registered_domain"] for r in phish_test}
-    benign_train_clean = [
-        r for r in benign_train if r["registered_domain"] not in phish_test_domains
-    ]
+    # Remove any test row whose domain appears in the DB set
+    clean_phish_test = [r for r in phish_test if r["registered_domain"] not in db_domains]
+    removed_db = len(phish_test) - len(clean_phish_test)
+    if removed_db:
+        print(
+            f"    DB domain-disjoint enforcement: removed {removed_db} test row(s) "
+            f"whose domain also appeared in DB."
+        )
+    phish_test = clean_phish_test
+
+    # Forbid any domain in DB or train from appearing in test
+    forbidden_test_domains = db_domains | {r["registered_domain"] for r in phish_train} | {r["registered_domain"] for r in benign_train}
     benign_test_clean = [
-        r for r in benign_test if r["registered_domain"] not in phish_test_domains
+        r for r in benign_test if r["registered_domain"] not in forbidden_test_domains
     ]
+
+    # Ensure train sets share zero domains with the final test sets
+    final_test_domains = {r["registered_domain"] for r in phish_test} | {r["registered_domain"] for r in benign_test_clean}
+    phish_train = [r for r in phish_train if r["registered_domain"] not in final_test_domains]
+    benign_train_clean = [r for r in benign_train if r["registered_domain"] not in final_test_domains]
 
     # ── Write splits ───────────────────────────────────────────────────────────
     splits = {

@@ -1,0 +1,375 @@
+[
+  {
+    "brand_name": "State Bank of India",
+    "keywords": ["sbi", "onlinesbi", "statebankofindia"],
+    "official_domains": ["sbi.co.in", "onlinesbi.sbi", "onlinesbi.com", "bank.sbi"],
+    "verified": false
+  },
+  {
+    "brand_name": "HDFC Bank",
+    "keywords": ["hdfc", "hdfcbank"],
+    "official_domains": ["hdfcbank.com", "hdfc.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "ICICI Bank",
+    "keywords": ["icici", "icicibank"],
+    "official_domains": ["icicibank.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Axis Bank",
+    "keywords": ["axisbank", "axis"],
+    "official_domains": ["axisbank.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Punjab National Bank",
+    "keywords": ["pnb", "netpnb", "punjabnationalbank"],
+    "official_domains": ["pnbindia.in", "netpnb.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Bank of Baroda",
+    "keywords": ["bankofbaroda", "bobibanking", "barodabank"],
+    "official_domains": ["bankofbaroda.in", "bobibanking.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Kotak Mahindra Bank",
+    "keywords": ["kotak", "kotakbank", "kotakmahindra"],
+    "official_domains": ["kotak.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Canara Bank",
+    "keywords": ["canarabank", "canarabankonline"],
+    "official_domains": ["canarabank.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Union Bank of India",
+    "keywords": ["unionbankofindia", "unionbank"],
+    "official_domains": ["unionbankofindia.co.in", "unionbankonline.co.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Indian Bank",
+    "keywords": ["indianbank", "indianbankonline"],
+    "official_domains": ["indianbank.in", "indianbank.net.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Bank of India",
+    "keywords": ["bankofindia", "boinetbanking"],
+    "official_domains": ["bankofindia.co.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Central Bank of India",
+    "keywords": ["centralbankofindia", "centralbank"],
+    "official_domains": ["centralbankofindia.co.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "IndusInd Bank",
+    "keywords": ["indusind", "indusindbank"],
+    "official_domains": ["indusind.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Yes Bank",
+    "keywords": ["yesbank"],
+    "official_domains": ["yesbank.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "IDBI Bank",
+    "keywords": ["idbibank", "idbi"],
+    "official_domains": ["idbibank.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Federal Bank",
+    "keywords": ["federalbank"],
+    "official_domains": ["federalbank.co.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "RBL Bank",
+    "keywords": ["rblbank", "rbl"],
+    "official_domains": ["rblbank.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Paytm",
+    "keywords": ["paytm", "paytmbank"],
+    "official_domains": ["paytm.com", "paytmbank.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "PhonePe",
+    "keywords": ["phonepe"],
+    "official_domains": ["phonepe.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Google Pay",
+    "keywords": ["gpay", "googlepay"],
+    "official_domains": ["pay.google.com", "google.com", "google.co.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "BHIM UPI",
+    "keywords": ["bhim", "bhimupi", "npci", "upi"],
+    "official_domains": ["bhimupi.org.in", "npci.org.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Amazon Pay",
+    "keywords": ["amazonpay"],
+    "official_domains": ["amazon.in", "amazon.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "CRED",
+    "keywords": ["cred"],
+    "official_domains": ["cred.club"],
+    "verified": false
+  },
+  {
+    "brand_name": "MobiKwik",
+    "keywords": ["mobikwik"],
+    "official_domains": ["mobikwik.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Freecharge",
+    "keywords": ["freecharge"],
+    "official_domains": ["freecharge.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "IRCTC",
+    "keywords": ["irctc", "indianrailways", "railconnect"],
+    "official_domains": ["irctc.co.in", "irctc.com", "indianrail.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Parivahan e-Challan",
+    "keywords": ["parivahan", "echallan", "challan", "vahan", "sarathi", "morth"],
+    "official_domains": ["parivahan.gov.in", "echallan.parivahan.gov.in", "sarathi.parivahan.gov.in", "vahan.parivahan.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Income Tax Department",
+    "keywords": ["incometax", "incometaxindia", "itr", "efiling"],
+    "official_domains": ["incometax.gov.in", "incometaxindiaefiling.gov.in", "incometaxindia.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "UIDAI Aadhaar",
+    "keywords": ["uidai", "aadhaar", "myaadhaar", "residentuidai"],
+    "official_domains": ["uidai.gov.in", "myaadhaar.uidai.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "DigiLocker",
+    "keywords": ["digilocker", "digitallocker"],
+    "official_domains": ["digilocker.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "EPFO",
+    "keywords": ["epfo", "epfindia", "uan", "providentfund"],
+    "official_domains": ["epfindia.gov.in", "unifiedportal-mem.epfindia.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "India Post",
+    "keywords": ["indiapost", "postinfo", "ippb", "indiapostpaymentsbank"],
+    "official_domains": ["indiapost.gov.in", "ippbonline.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "FASTag NHAI",
+    "keywords": ["fastag", "nhai", "ihmcl"],
+    "official_domains": ["fastag.ihmcl.com", "nhai.gov.in", "ihmcl.co.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Passport Seva",
+    "keywords": ["passportseva", "passportindia"],
+    "official_domains": ["passportindia.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "National Cyber Crime Reporting Portal",
+    "keywords": ["cybercrime", "cybercrimeportal"],
+    "official_domains": ["cybercrime.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Ministry of Corporate Affairs",
+    "keywords": ["mca", "mca21"],
+    "official_domains": ["mca.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "GST Portal",
+    "keywords": ["gst", "gstportal", "goodsandsrvices"],
+    "official_domains": ["gst.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "National Pension System Protean",
+    "keywords": ["nps", "nsdl", "protean", "cra-nsdl"],
+    "official_domains": ["npscra.nsdl.co.in", "proteantech.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "National Portal of India",
+    "keywords": ["india.gov.in", "digitalindia"],
+    "official_domains": ["india.gov.in", "digitalindia.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "TANGEDCO Tamil Nadu Electricity",
+    "keywords": ["tangedco", "tneb"],
+    "official_domains": ["tangedco.org", "tnebltd.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "BESCOM Bangalore Electricity",
+    "keywords": ["bescom"],
+    "official_domains": ["bescom.karnataka.gov.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "MSEDCL Mahavitaran Electricity",
+    "keywords": ["msedcl", "mahadiscom", "mahavitaran"],
+    "official_domains": ["mahadiscom.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "Tata Power",
+    "keywords": ["tatapower"],
+    "official_domains": ["tatapower.com", "tatapower-ddl.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "BSES Delhi Electricity",
+    "keywords": ["bses", "bsesdelhi", "bsesrajdhani", "bsesyamuna"],
+    "official_domains": ["bsesdelhi.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "UPPCL Uttar Pradesh Electricity",
+    "keywords": ["uppcl", "upenergy"],
+    "official_domains": ["upenergy.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "WBSEDCL West Bengal Electricity",
+    "keywords": ["wbsedcl"],
+    "official_domains": ["wbsedcl.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "PSPCL Punjab Electricity",
+    "keywords": ["pspcl"],
+    "official_domains": ["pspcl.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "DHBVN Haryana Electricity",
+    "keywords": ["dhbvn"],
+    "official_domains": ["dhbvn.org.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "TSSPDCL Telangana Electricity",
+    "keywords": ["tsspdcl"],
+    "official_domains": ["tsspdcl.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Electricity Board Other States",
+    "keywords": ["bijli", "electricitybill", "powerbill"],
+    "official_domains": [],
+    "verified": false,
+    "needs_verification": true
+  },
+  {
+    "brand_name": "Flipkart",
+    "keywords": ["flipkart"],
+    "official_domains": ["flipkart.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Amazon India",
+    "keywords": ["amazon", "amazonindia"],
+    "official_domains": ["amazon.in", "amazon.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Meesho",
+    "keywords": ["meesho"],
+    "official_domains": ["meesho.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Myntra",
+    "keywords": ["myntra"],
+    "official_domains": ["myntra.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Blinkit",
+    "keywords": ["blinkit"],
+    "official_domains": ["blinkit.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Zepto",
+    "keywords": ["zepto", "zeptonow"],
+    "official_domains": ["zeptonow.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Swiggy",
+    "keywords": ["swiggy"],
+    "official_domains": ["swiggy.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Zomato",
+    "keywords": ["zomato"],
+    "official_domains": ["zomato.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Reliance Jio",
+    "keywords": ["jio", "myjio", "reliancejio"],
+    "official_domains": ["jio.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Bharti Airtel",
+    "keywords": ["airtel", "bhartiairtel", "airtelthanks"],
+    "official_domains": ["airtel.in", "airtel.com"],
+    "verified": false
+  },
+  {
+    "brand_name": "Vodafone Idea",
+    "keywords": ["myvi", "vodafone", "idea"],
+    "official_domains": ["myvi.in"],
+    "verified": false
+  },
+  {
+    "brand_name": "BSNL",
+    "keywords": ["bsnl"],
+    "official_domains": ["bsnl.co.in"],
+    "verified": false
+  }
+]

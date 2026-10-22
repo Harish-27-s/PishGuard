@@ -4,11 +4,11 @@
   "phish_train_frac": 0.3,
   "benign_test_frac": 0.3,
   "counts": {
-    "phishing_db": 23623,
-    "phishing_train": 3398,
-    "phishing_test": 17718,
-    "benign_train": 6877,
-    "benign_test": 2964
+    "phishing_db": 23615,
+    "phishing_train": 3405,
+    "phishing_test": 3202,
+    "benign_train": 6979,
+    "benign_test": 2952
   },
-  "train_phish_to_benign_ratio": 0.4941
+  "train_phish_to_benign_ratio": 0.4879
 }

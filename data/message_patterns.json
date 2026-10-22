@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "english": {
+      "needs_native_speaker_review": false,
+      "challan_pending": [
+        "challan\\s+pending",
+        "traffic\\s+challan",
+        "e-?challan\\s+notice",
+        "unpaid\\s+challan",
+        "vehicle\\s+fine\\s+pending",
+        "court\\s+notice.*challan"
+      ],
+      "kyc_expiry": [
+        "kyc\\s+(expired|suspended|pending|incomplete|failed)",
+        "update\\s+your\\s+kyc",
+        "kyc\\s+verification\\s+required",
+        "pan\\s+(card\\s+)?(link|update|blocked)",
+        "aadhaar\\s+(link|update|verification)"
+      ],
+      "account_blocked": [
+        "account\\s+(will\\s+be\\s+)?(blocked|suspended|deactivated|frozen|restricted)",
+        "debit\\s+card\\s+(blocked|suspended)",
+        "netbanking\\s+(blocked|suspended)",
+        "unauthorized\\s+(access|transaction)",
+        "electricity\\s+(will\\s+be\\s+)?(disconnected|cut)"
+      ],
+      "prize_refund": [
+        "won\\s+(a\\s+)?(lottery|prize|reward|cashback|crore|lakh)",
+        "income\\s+tax\\s+refund\\s+approved",
+        "claim\\s+your\\s+(reward|cashback|refund|prize)",
+        "bonus\\s+credited"
+      ],
+      "apk_install": [
+        "install\\s+(the\\s+)?(app|application|apk)",
+        "download\\s+(the\\s+)?(app|application|apk)",
+        "open\\s+apk",
+        "install\\s+sbi\\s+app",
+        "install\\s+parivahan\\s+app",
+        "install\\s+challan\\s+app"
+      ],
+      "action_urgency": [
+        "click\\s+(the\\s+)?link\\s+(now|immediately|below)",
+        "within\\s+\\d+\\s*(hours?|hrs?|minutes?|mins?)",
+        "immediately\\s+to\\s+avoid",
+        "failure\\s+to\\s+do\\s+so",
+        "to\\s+avoid\\s+disconnection",
+        "to\\s+avoid\\s+penalty",
+        "act\\s+now"
+      ]
+    },
+    "hindi": {
+      "needs_native_speaker_review": true,
+      "challan_pending": [
+        "चालान\\s+(लंबित|बाकी|काट)",
+        "ई-?चालान\\s+भुगतान",
+        "ट्रैफिक\\s+चालान",
+        "अदालत\\s+नोटिस"
+      ],
+      "kyc_expiry": [
+        "केवाईसी\\s+(अपडेट|समाप्त|बंद|अमान्य|सत्यापन)",
+        "केवाईसी\\s+तुरंत\\s+कराएं",
+        "पैन\\s+कार्ड\\s+ब्लॉक"
+      ],
+      "account_blocked": [
+        "खाता\\s+(ब्लॉक|बंद|निलंबित)\\s+कर\\s+दिया\\s+गया",
+        "खाता\\s+बंद\\s+हो\\s+जाएगा",
+        "बिजली\\s+(काट|बंद|विच्छेद)\\s+दी\\s+जाएगी",
+        "नेट\\s*बैंकिंग\\s+ब्लॉक"
+      ],
+      "prize_refund": [
+        "लॉटरी\\s+जीती",
+        "इनाम\\s+(मिला|प्राप्त|जीत)",
+        "रिफंड\\s+प्राप्त\\s+करें",
+        "कैशबैक\\s+दावा\\s+करें"
+      ],
+      "apk_install": [
+        "ऐप\\s+(डाउनलोड|इंस्टॉल|इन्स्टॉल)\\s+करें",
+        "एपीके\\s+(डाउनलोड|इंस्टॉल)",
+        "नीचे\\s+दिए\\s+गए\\s+ऐप\\s+को\\s+इंस्टॉल\\s+करें"
+      ],
+      "action_urgency": [
+        "तुरंत\\s+क्लिक\\s+करें",
+        "अभी\\s+अपडेट\\s+करें",
+        "लिंक\\s+पर\\s+क्लिक\\s+करें",
+        "24\\s+घंटे\\s+के\\s+भीतर",
+        "नहीं\\s+तो\\s+सेवाएं\\s+रोक\\s+दी\\s+जाएंगी"
+      ]
+    },
+    "hinglish": {
+      "needs_native_speaker_review": false,
+      "challan_pending": [
+        "(apka|aapka)\\s+(challan|e-?challan)\\s+(pending|baki|kata)",
+        "challan\\s+(pay|bhare|jama)\\s+(karein|karo|now)",
+        "traffic\\s+fine\\s+jama\\s+karein"
+      ],
+      "kyc_expiry": [
+        "kyc\\s+(update|complete|verify)\\s+(karein|karo|nhi\\s+kiya)",
+        "kyc\\s+(expire|block|band)\\s+ho\\s+gaya",
+        "pan\\s+card\\s+update\\s+karein",
+        "aadhaar\\s+link\\s+karein"
+      ],
+      "account_blocked": [
+        "(account|khata)\\s+(block|band|suspend|deactivate)\\s+(ho\\s+gaya|kar\\s+diya)",
+        "account\\s+(block|band)\\s+ho\\s+jayega",
+        "bijli\\s+(kat|disconnect|band)\\s+ho\\s+jayegi",
+        "debit\\s+card\\s+block\\s+ho\\s+gaya"
+      ],
+      "prize_refund": [
+        "(prize|lottery|cashback|reward)\\s+(mila|jeeta|claim\\s+karein)",
+        "income\\s+tax\\s+refund\\s+lelo",
+        "crore\\s+ki\\s+lottery"
+      ],
+      "apk_install": [
+        "(apk|app)\\s+(install|download)\\s+karein",
+        "(apk|app)\\s+download\\s+karke\\s+open\\s+karein",
+        "parivahan\\s+apk\\s+install\\s+karein"
+      ],
+      "action_urgency": [
+        "turant\\s+(click|karein|karo)",
+        "link\\s+par\\s+click\\s+karein",
+        "abhi\\s+update\\s+karein",
+        "24\\s+ghante\\s+ke\\s+andar",
+        "nahi\\s+to\\s+account\\s+band"
+      ]
+    },
+    "tamil": {
+      "needs_native_speaker_review": true,
+      "challan_pending": [
+        "செல்லான்\\s+(நிலுவையில்|கட்டணம்)",
+        "போக்குவரத்து\\s+செல்லான்",
+        "அபராதம்\\s+செலுத்தவும்"
+      ],
+      "kyc_expiry": [
+        "கேஒய்சி\\s+(புதுப்பிக்கவும்|முடிவடைந்தது|இடைநிறுத்தப்பட்டது|சரிபார்க்கவும்)",
+        "வங்கி\\s+கேஒய்சி",
+        "பான்\\s+கார்டு\\s+இணைக்கவும்"
+      ],
+      "account_blocked": [
+        "வங்கி\\s+கணக்கு\\s+(முடக்கப்பட்டது|தடைசெய்யப்பட்டது)",
+        "கணக்கு\\s+தற்காலிகமாக\\s+நிறுத்தப்பட்டது",
+        "மின்\\s+இணைப்பு\\s+துண்டிக்கப்படும்"
+      ],
+      "prize_refund": [
+        "பரிசு\\s+(வென்றுள்ளீர்கள்|கிடைத்துள்ளது)",
+        "லாட்டரி\\s+வெற்றி",
+        "பணம்\\s+திரும்பப்\\s+பெறவும்"
+      ],
+      "apk_install": [
+        "செயலியை\\s+(பதிவிறக்கம்|நிறுவவும்)",
+        "ஆப்\\s+பதிவிறக்கவும்",
+        "ஏபிகே\\s+பதிவிறக்கம்\\s+செய்யவும்"
+      ],
+      "action_urgency": [
+        "உடனடியாக\\s+கிளிக்\\s+செய்யவும்",
+        "இப்போதே\\s+புதுப்பிக்கவும்",
+        "இணைப்பை\\s+கிளிக்\\s+செய்யவும்",
+        "24\\s+மணி\\s+நேரத்திற்குள்"
+      ]
+    }
+  }
+}

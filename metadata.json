@@ -1,0 +1,6 @@
+{
+  "name": "PhishGuard",
+  "description": "Explainable phishing and domain-spoofing detection for Indian citizens, analyzing URLs and scam messages with brand spoofing and APK detection.",
+  "permissions": [],
+  "capabilities": []
+}
