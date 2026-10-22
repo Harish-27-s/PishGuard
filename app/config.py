@@ -80,6 +80,19 @@ def get_official_allowlist() -> set[str]:
     return allowlist
 
 
+def is_official_host(host: str, allowlist: set[str] | None = None) -> bool:
+    """Return whether *host* is an allowlisted domain or a real subdomain of one."""
+    normalized_host = host.strip().lower().rstrip(".")
+    if not normalized_host:
+        return False
+
+    trusted_domains = allowlist if allowlist is not None else get_official_allowlist()
+    return any(
+        normalized_host == domain or normalized_host.endswith(f".{domain}")
+        for domain in trusted_domains
+    )
+
+
 def load_message_patterns() -> dict[str, Any]:
     """Load multilingual urgency and scam patterns from message_patterns.json."""
     if not PATTERNS_PATH.exists():

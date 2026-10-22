@@ -35,6 +35,7 @@ from app.config import (
     WEIGHT_ML,
     WEIGHT_RULES,
     get_official_allowlist,
+    is_official_host,
 )
 from app.database import lookup
 from app.model import predict_proba
@@ -69,7 +70,7 @@ def score_input(input_text: str, db_path: Path = DB_PATH) -> dict[str, Any]:
     # ── LAYER 1: Database Check ────────────────────────────────────────────────
     if is_direct_url and direct_norm:
         # Check if direct URL is in allowlist first (genuine sites never flagged)
-        if direct_norm.registered_domain in allowlist:
+        if is_official_host(direct_norm.host, allowlist):
             return {
                 "verdict": "Safe",
                 "score": 0,
@@ -96,7 +97,7 @@ def score_input(input_text: str, db_path: Path = DB_PATH) -> dict[str, Any]:
         embedded_urls = extract_urls(raw)
         for u in embedded_urls:
             u_norm = normalize(u)
-            if u_norm and u_norm.registered_domain not in allowlist:
+            if u_norm and not is_official_host(u_norm.host, allowlist):
                 hit = lookup(u_norm.normalised, u_norm.registered_domain, db_path=db_path)
                 if hit:
                     return {
@@ -172,7 +173,7 @@ def score_input(input_text: str, db_path: Path = DB_PATH) -> dict[str, Any]:
         )
 
     # If allowlisted site scored low
-    if is_direct_url and direct_norm and direct_norm.registered_domain in allowlist:
+    if is_direct_url and direct_norm and is_official_host(direct_norm.host, allowlist):
         final_score = 0
         verdict = "Safe"
         reasons = [

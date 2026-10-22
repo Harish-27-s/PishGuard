@@ -48,6 +48,7 @@ data/processed/test_*.csv
 
 # SQLite database (built from data)
 *.db
+*.db*
 *.sqlite
 
 # Environment variables
@@ -74,3 +75,7 @@ Thumbs.db
 # Secrets
 *.pem
 *.key
+
+# node
+pnpm*
+

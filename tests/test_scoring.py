@@ -83,6 +83,21 @@ def test_genuine_sites_score_safe(url: str, tmp_path: Path) -> None:
     assert len(res["reasons"]) >= 1
 
 
+def test_verified_domain_subdomain_is_safe(tmp_path: Path) -> None:
+    db_file = tmp_path / "empty.db"
+    res = score_input("https://login.onlinesbi.sbi/netbanking", db_path=db_file)
+    assert res["verdict"] == "Safe"
+    assert res["score"] == 0
+
+
+def test_brand_lookalike_outside_verified_domain_is_not_allowlisted(tmp_path: Path) -> None:
+    db_file = tmp_path / "empty.db"
+    res = score_input("https://onlinesbi.sbi.bank.in/", db_path=db_file)
+    assert res["verdict"] == "Suspicious"
+    assert res["score"] >= 35
+    assert any("brand keyword" in reason.lower() for reason in res["reasons"])
+
+
 # ── Suspicious & Dangerous Rule / ML Triggers ─────────────────────────────────
 
 def test_bank_lookalike_scores_suspicious_or_dangerous(tmp_path: Path) -> None:

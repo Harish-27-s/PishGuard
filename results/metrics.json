@@ -1,1 +1,83 @@
-TEST_OK
+{
+  "DB_SIZE": 120,
+  "DB_SOURCES": {
+    "OpenPhish": 120
+  },
+  "DATASET_PHISH": 23,
+  "DATASET_BENIGN": 2997,
+  "PRECISION": 0.5833,
+  "RECALL": 0.913,
+  "F1": 0.7118,
+  "FPR": 0.005,
+  "DB_HIT_RATE": 1.0,
+  "INDIAN_SET_SIZE": 54,
+  "INDIAN_SET_RESULT": {
+    "total": 54,
+    "accuracy": 0.9444,
+    "precision": 1.0,
+    "recall": 0.9032,
+    "f1": 0.9492,
+    "tp": 28,
+    "fp": 0,
+    "tn": 23,
+    "fn": 3,
+    "by_category": {
+      "genuine_bank": {
+        "correct": 5,
+        "total": 5
+      },
+      "genuine_gov": {
+        "correct": 6,
+        "total": 6
+      },
+      "genuine_upi": {
+        "correct": 2,
+        "total": 2
+      },
+      "genuine_general": {
+        "correct": 3,
+        "total": 3
+      },
+      "genuine_sms": {
+        "correct": 7,
+        "total": 7
+      },
+      "bank_lookalike": {
+        "correct": 6,
+        "total": 6
+      },
+      "fake_echallan": {
+        "correct": 4,
+        "total": 4
+      },
+      "gov_lookalike": {
+        "correct": 4,
+        "total": 4
+      },
+      "apk_lure": {
+        "correct": 3,
+        "total": 3
+      },
+      "upi_scam": {
+        "correct": 2,
+        "total": 3
+      },
+      "kyc_fraud": {
+        "correct": 1,
+        "total": 1
+      },
+      "hindi_scam": {
+        "correct": 3,
+        "total": 3
+      },
+      "hinglish_scam": {
+        "correct": 3,
+        "total": 4
+      },
+      "tamil_scam": {
+        "correct": 2,
+        "total": 3
+      }
+    }
+  }
+}

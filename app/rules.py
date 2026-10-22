@@ -30,6 +30,7 @@ from rapidfuzz import fuzz, distance
 from app.config import (
     DB_PATH,
     get_official_allowlist,
+    is_official_host,
     load_brands,
     load_message_patterns,
     POINTS_LOOKALIKE_BRAND,
@@ -123,7 +124,7 @@ def check_lookalike(
     suffix = norm.suffix.lower()
 
     # 1. Allow-list check: if domain is legitimately registered to an official entity, skip
-    if reg_domain in allowlist or host in allowlist:
+    if is_official_host(host, allowlist):
         return []
 
     # 2. Fake government portal check:
@@ -175,7 +176,7 @@ def check_lookalike(
         official_domains = {d.lower() for d in b.get("official_domains", [])}
 
         # If this is already an official domain for this brand, ignore
-        if reg_domain in official_domains:
+        if is_official_host(host, official_domains):
             continue
 
         # Check if brand keyword is in subdomain
@@ -208,7 +209,7 @@ def check_lookalike(
     for b in brands:
         b_name = b.get("brand_name", "")
         official_domains = [d.lower() for d in b.get("official_domains", [])]
-        if reg_domain in official_domains:
+        if is_official_host(host, set(official_domains)):
             continue
 
         for off_dom in official_domains:
@@ -265,7 +266,7 @@ def check_url_structure(norm: NormalizedURL) -> list[tuple[int, str]]:
 
     # Allowlist bypass check
     allowlist = get_official_allowlist()
-    if norm.registered_domain in allowlist:
+    if is_official_host(norm.host, allowlist):
         return []
 
     # 1. IP address host
@@ -362,7 +363,7 @@ def check_domain_age(
     Never crashes; returns (0, None) on timeout or error.
     """
     allowlist = get_official_allowlist()
-    if norm.registered_domain in allowlist or norm.is_ip:
+    if is_official_host(norm.host, allowlist) or norm.is_ip:
         return 0, None
 
     domain = norm.registered_domain
@@ -527,7 +528,7 @@ def evaluate_rules(
 
     if is_direct_url and direct_norm:
         # Check allowlist for direct URL
-        if direct_norm.registered_domain in allowlist:
+        if is_official_host(direct_norm.host, allowlist):
             # Verified official domain: genuine site, never flag!
             return 0, [f"Verified official domain: '{direct_norm.registered_domain}' belongs to a legitimate entity."]
 
@@ -571,7 +572,7 @@ def evaluate_rules(
         for u in urls:
             u_norm = normalize(u)
             if u_norm:
-                if u_norm.registered_domain in allowlist:
+                if is_official_host(u_norm.host, allowlist):
                     continue  # official link in message
 
                 for pts, rsn in check_lookalike(u_norm, allowlist=allowlist):

@@ -25,7 +25,7 @@ from typing import Any, Optional
 import joblib
 import numpy as np
 
-from app.config import ROOT, get_official_allowlist, load_brands
+from app.config import ROOT, get_official_allowlist, is_official_host, load_brands
 from app.normalize import NormalizedURL, normalize
 from app.rules import SUSPICIOUS_TLDS, calculate_entropy
 
@@ -96,7 +96,7 @@ def extract_features(url: str, brands: Optional[list[dict[str, Any]]] = None) ->
     # 10. Brand keyword present on non-official domain
     brand_kw = 0.0
     allowlist = get_official_allowlist()
-    if norm.registered_domain not in allowlist:
+    if not is_official_host(norm.host, allowlist):
         if brands is None:
             brands = load_brands()
         for b in brands:
@@ -158,7 +158,7 @@ def predict_proba(url: str, model_path: Path = MODEL_PATH) -> float:
 
     # Genuine allowlisted sites return 0.0 probability
     allowlist = get_official_allowlist()
-    if norm.registered_domain in allowlist:
+    if is_official_host(norm.host, allowlist):
         return 0.0
 
     model = load_model(model_path)
