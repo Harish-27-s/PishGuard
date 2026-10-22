@@ -3,8 +3,9 @@ evaluate.py – Evaluation on held-out test set and curated Indian lure benchmar
 
 Data integrity:
   - Held-out test set is evaluated ONLY (phishing_test.csv and benign_test.csv).
-  - Test set has ZERO normalized URL overlap and ZERO registered domain overlap
-    with either the DB set or the Train set.
+  - At start, verifies ZERO normalized URL overlap and ZERO registered domain
+    overlap between the test set and both the DB set and the training set.
+    If any overlap exists the process aborts with a clear error.
   - Generates results/metrics.json and results/metrics.md with required keys:
     DB_SIZE, DB_SOURCES, DATASET_PHISH, DATASET_BENIGN, PRECISION, RECALL, F1,
     FPR, DB_HIT_RATE, INDIAN_SET_SIZE, INDIAN_SET_RESULT, plus Evaluation Integrity.
@@ -18,14 +19,11 @@ import random
 import sys
 from pathlib import Path
 
-import numpy as np
-import pandas as pd
-
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 from app.config import DB_PATH, PROCESSED_DIR
-from app.database import db_stats, lookup
+from app.database import db_stats
 from app.scoring import score_input
 
 RESULTS_DIR = ROOT / "results"
@@ -35,15 +33,87 @@ METRICS_MD_PATH = RESULTS_DIR / "metrics.md"
 LURE_SET_PATH = ROOT / "data" / "lure_set.csv"
 
 
+def _load_csv_urls_and_domains(path: Path) -> tuple[set[str], set[str]]:
+    """Return (normalised_urls, registered_domains) from a split CSV."""
+    urls: set[str] = set()
+    domains: set[str] = set()
+    if not path.exists():
+        return urls, domains
+    with open(path, newline="", encoding="utf-8") as fh:
+        for r in csv.DictReader(fh):
+            u = (r.get("normalised_url") or r.get("url") or "").strip()
+            d = (r.get("registered_domain") or "").strip().lower()
+            if u:
+                urls.add(u)
+            if d:
+                domains.add(d)
+    return urls, domains
+
+
+def verify_no_leakage() -> dict:
+    """
+    Verify that the held-out test set shares NO normalised URL and NO
+    registered domain with the DB set or the training set.
+
+    Prints the overlap counts. Raises SystemExit(1) if any count is non-zero.
+    Returns a dict of the counts for inclusion in the integrity report.
+    """
+    print("\n[Integrity] Verifying zero overlap between test set and (DB + train) …")
+
+    test_urls, test_domains = set(), set()
+    for name in ("phishing_test.csv", "benign_test.csv"):
+        u, d = _load_csv_urls_and_domains(PROCESSED_DIR / name)
+        test_urls |= u
+        test_domains |= d
+
+    db_urls, db_domains = _load_csv_urls_and_domains(PROCESSED_DIR / "phishing_db.csv")
+
+    train_urls, train_domains = set(), set()
+    for name in ("phishing_train.csv", "benign_train.csv"):
+        u, d = _load_csv_urls_and_domains(PROCESSED_DIR / name)
+        train_urls |= u
+        train_domains |= d
+
+    # Counts (must all be zero)
+    url_test_db = len(test_urls & db_urls)
+    url_test_train = len(test_urls & train_urls)
+    dom_test_db = len(test_domains & db_domains)
+    dom_test_train = len(test_domains & train_domains)
+
+    print(f"  Test vs DB   – normalised URL overlap : {url_test_db}")
+    print(f"  Test vs Train – normalised URL overlap : {url_test_train}")
+    print(f"  Test vs DB   – registered domain overlap : {dom_test_db}")
+    print(f"  Test vs Train – registered domain overlap : {dom_test_train}")
+
+    if url_test_db or url_test_train or dom_test_db or dom_test_train:
+        print("\nERROR: Data leakage detected. Aborting evaluation.")
+        print("The held-out test set must share zero normalised URLs and zero")
+        print("registered domains with both the database set and the training set.")
+        print("Re-run scripts/split_data.py (seed=42) and rebuild the DB / model.")
+        sys.exit(1)
+
+    print("  ✓ All overlap counts are 0. Proceeding with evaluation.")
+    return {
+        "url_test_vs_db": url_test_db,
+        "url_test_vs_train": url_test_train,
+        "domain_test_vs_db": dom_test_db,
+        "domain_test_vs_train": dom_test_train,
+    }
+
+
 def load_heldout_test_set() -> tuple[list[str], list[int]]:
     """Load phishing_test.csv and benign_test.csv."""
     phish_path = PROCESSED_DIR / "phishing_test.csv"
     benign_path = PROCESSED_DIR / "benign_test.csv"
 
+    if not phish_path.exists() or not benign_path.exists():
+        print("ERROR: Held-out test CSVs missing under data/processed/.")
+        print("Run: python scripts/fetch_data.py && python scripts/split_data.py")
+        sys.exit(1)
+
     urls: list[str] = []
     labels: list[int] = []
 
-    # Phishing test (1)
     with open(phish_path, newline="", encoding="utf-8") as fh:
         for r in csv.DictReader(fh):
             u = r.get("normalised_url") or r.get("url")
@@ -51,7 +121,6 @@ def load_heldout_test_set() -> tuple[list[str], list[int]]:
                 urls.append(u)
                 labels.append(1)
 
-    # Benign test (0)
     with open(benign_path, newline="", encoding="utf-8") as fh:
         for r in csv.DictReader(fh):
             u = r.get("normalised_url") or r.get("url")
@@ -75,6 +144,9 @@ def evaluate_db_hit_rate(sample_size: int = 2000, seed: int = 42) -> float:
             if u:
                 db_urls.append(u)
 
+    if not db_urls:
+        return 0.0
+
     rng = random.Random(seed)
     sample = rng.sample(db_urls, min(sample_size, len(db_urls)))
     hits = 0
@@ -83,7 +155,7 @@ def evaluate_db_hit_rate(sample_size: int = 2000, seed: int = 42) -> float:
         if res.get("source") == "database" and res.get("score") == 100:
             hits += 1
 
-    return round(hits / len(sample), 4) if sample else 0.0
+    return round(hits / len(sample), 4)
 
 
 def evaluate_lure_set() -> dict:
@@ -93,13 +165,13 @@ def evaluate_lure_set() -> dict:
 
     rows = []
     with open(LURE_SET_PATH, newline="", encoding="utf-8") as fh:
-        # Ignore comments
+        # Ignore comment lines (curated-notice header)
         lines = [line for line in fh if not line.startswith("#")]
         reader = csv.DictReader(lines)
         for r in reader:
             rows.append(r)
 
-    tp, fp, tn, fn = 0, 0, 0, 0
+    tp = fp = tn = fn = 0
     by_category: dict[str, dict[str, int]] = {}
 
     for r in rows:
@@ -121,7 +193,7 @@ def evaluate_lure_set() -> dict:
             by_category[cat]["correct"] += 1
         elif not is_phish and pred_phish:
             fp += 1
-        elif is_phish and not pred_phish:
+        else:
             fn += 1
         by_category[cat]["total"] += 1
 
@@ -151,6 +223,9 @@ def main() -> None:
     print("Evaluation on Held-Out Test Set & Curated Indian Lures")
     print("=" * 65)
 
+    # 0. Mandatory integrity check – aborts on any leakage
+    overlap = verify_no_leakage()
+
     stats = db_stats(DB_PATH)
     db_size = stats["total"]
     db_sources = stats["by_source"]
@@ -168,7 +243,7 @@ def main() -> None:
     print(f"  Total Test URLs    : {total_test:>6,}")
 
     print("\nEvaluating scoring engine on held-out test set …")
-    tp, fp, tn, fn = 0, 0, 0, 0
+    tp = fp = tn = fn = 0
 
     for i, (u, label) in enumerate(zip(urls, y_true)):
         res = score_input(u, db_path=DB_PATH)
@@ -180,7 +255,7 @@ def main() -> None:
             tn += 1
         elif label == 0 and is_threat:
             fp += 1
-        elif label == 1 and not is_threat:
+        else:
             fn += 1
 
         if (i + 1) % 1500 == 0 or (i + 1) == total_test:
@@ -232,7 +307,7 @@ def main() -> None:
     METRICS_JSON_PATH.write_text(json.dumps(metrics_payload, indent=2), encoding="utf-8")
     print(f"\n✓ Saved metrics JSON to {METRICS_JSON_PATH}")
 
-    # 5. Save results/metrics.md with Evaluation Integrity section
+    # 5. Save results/metrics.md with Evaluation Integrity section (real counts)
     metrics_md = f"""# PhishGuard Evaluation Metrics & Benchmark Report
 
 Submitted for the **Seva First Innovation Challenge** — Ministry of Education, India.
@@ -260,7 +335,7 @@ Submitted for the **Seva First Innovation Challenge** — Ministry of Education,
 ## 2. Held-Out Test Set Performance
 
 - **Evaluation Basis**: The evaluation is conducted on completely withheld URLs that were **never** used during model training or database loading.
-- **Decision Threshold**: Score $\\ge 35$ (Suspicious or Dangerous) treated as positive prediction; Score $< 35$ (Safe) treated as negative.
+- **Decision Threshold**: Score ≥ 35 (Suspicious or Dangerous) treated as positive prediction; Score < 35 (Safe) treated as negative.
 
 ### Confusion Matrix
 
@@ -273,7 +348,7 @@ Submitted for the **Seva First Innovation Challenge** — Ministry of Education,
 
 ## 3. Curated Indian Lure Benchmark (`data/lure_set.csv`)
 
-Curated set of 54 realistic Indian-specific test cases (fake e-challan, bank KYC, UPI/lottery lures, gov portal lookalikes, APK download links, and Tamil/Hindi/Hinglish threat messages):
+Curated set of realistic Indian-specific test cases (fake e-challan, bank KYC, UPI/lottery lures, gov portal lookalikes, APK download links, and Tamil/Hindi/Hinglish threat messages). Explicitly marked as curated, not real-world victim data.
 
 - **Total Cases**: {lure_results['total']}
 - **Accuracy**: {lure_results['accuracy']:.2%}
@@ -283,7 +358,7 @@ Curated set of 54 realistic Indian-specific test cases (fake e-challan, bank KYC
 - **Category Breakdown**:
 """
     for cat, cstats in lure_results["by_category"].items():
-        metrics_md += f"  - `{cat}`: {cstats['correct']}/{cstats['total']} correct ({100*cstats['correct']/cstats['total']:.0f}%)\n"
+        metrics_md += f"  - `{cat}`: {cstats['correct']}/{cstats['total']} correct ({100 * cstats['correct'] / cstats['total']:.0f}%)\n"
 
     metrics_md += f"""
 ---
@@ -296,17 +371,17 @@ To ensure rigorous scientific validity and eliminate data leakage, PhishGuard en
 2. **Training Set (`phishing_train.csv`, `benign_train.csv`)**: Lexical URL features used to train the Random Forest model.
 3. **Held-Out Test Set (`phishing_test.csv`, `benign_test.csv`)**: Unseen URLs used strictly for final validation.
 
-### Overlap Verification Counts
+### Overlap Verification Counts (computed at runtime by evaluate.py)
 
 | Set Overlap Check | Registered Domains Shared | Normalized URLs Shared | Status |
 | :--- | :--- | :--- | :--- |
-| **Test Set vs. Database Set** | **0** | **0** | PASSED (Clean) |
-| **Test Set vs. Training Set** | **0** | **0** | PASSED (Clean) |
-| **Database Set vs. Training Set** | Independent | **0** | PASSED (Deduplicated) |
+| **Test Set vs. Database Set** | **{overlap['domain_test_vs_db']}** | **{overlap['url_test_vs_db']}** | PASSED (Clean) |
+| **Test Set vs. Training Set** | **{overlap['domain_test_vs_train']}** | **{overlap['url_test_vs_train']}** | PASSED (Clean) |
 
 - **Zero Domain Leakage**: Neither the database nor the training set contains any registered domain present in the held-out test set. The model and database are evaluated on entirely novel domain infrastructure.
 - **Strict Parameter Isolation**: Thresholds (<35 Safe, 35-65 Suspicious, >65 Dangerous) and feature extraction rules were tuned strictly on the Training set, leaving the Test set unpolluted.
 - **No Synthetic or Rounded Estimates**: All metrics are calculated directly via `evaluate.py`.
+- **Abort-on-leakage**: If any overlap count is non-zero the script exits with an error before any metrics are written.
 """
 
     METRICS_MD_PATH.write_text(metrics_md, encoding="utf-8")
