@@ -1,0 +1,24 @@
+[
+  {
+    "name": "OpenPhish",
+    "url": "https://openphish.com/feed.txt",
+    "download_date": "2026-10-22",
+    "count": 300,
+    "file": "/home/harish/PROJECTS/PhishGuard/data/raw/openphish.txt"
+  },
+  {
+    "name": "PhishTank",
+    "url": "https://data.phishtank.com/data/online-valid.csv",
+    "download_date": "2026-10-22",
+    "count": 58856,
+    "file": "/home/harish/PROJECTS/PhishGuard/data/raw/phishtank.csv"
+  },
+  {
+    "name": "Tranco",
+    "url": "https://tranco-list.eu/top-1m.csv.zip",
+    "download_date": "2026-10-22",
+    "count": 10000,
+    "note": "Top 10000 domains, converted to https://<domain>/",
+    "file": "/home/harish/PROJECTS/PhishGuard/data/raw/tranco_top10000.txt"
+  }
+]

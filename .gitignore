@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Raw data downloads (large, reproducible)
+data/raw/
+
+# Processed data (keep CSVs for reproducibility, but not large ones)
+data/processed/phishing_*.csv
+data/processed/benign_*.csv
+data/processed/train_*.csv
+data/processed/test_*.csv
+
+# Model artefacts
+*.joblib
+*.pkl
+
+# SQLite database (built from data)
+*.db
+*.sqlite
+
+# Environment variables
+.env
+.env.*
+
+# Node / Vite
+web/node_modules/
+web/dist/
+web/.env.local
+
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
