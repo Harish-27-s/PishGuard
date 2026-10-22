@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PhishGuard</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <h1>PhishGuard</h1>
+    <p class="subtitle">Current tab check</p>
+  </header>
+
+  <section id="url-box">
+    <label>URL</label>
+    <p id="tab-url" class="url-text">Loading…</p>
+  </section>
+
+  <section id="settings">
+    <label for="api-url">API base URL</label>
+    <div class="row">
+      <input type="text" id="api-url" placeholder="http://localhost:8000" />
+      <button type="button" id="save-api" title="Save API URL">Save</button>
+    </div>
+  </section>
+
+  <button type="button" id="check-btn" class="primary">Check this page</button>
+
+  <div id="status" class="status hidden"></div>
+  <div id="result" class="result hidden"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
